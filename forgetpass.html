@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget Password</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("Background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+
+        .forget {
+            text-align: center;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .forget:hover {
+            background-color: rgba(128, 255, 0, 0.2);
+        }
+
+        input {
+            text-align: center;
+            width: 200px;
+            margin: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        button {
+            width: 200px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h2>FORGET PASSWORD</h2>
+        <div class="forget">
+            <label for="email">Enter email address</label>
+            <br>
+            <input placeholder="@email" type="email" name="email" id="email" required>
+            <br><br>
+            <button onclick="sendOTP()">Request reset link</button>
+            <br><br>
+            <a href="login.html">Back To Login</a>
+            <p id="message" class="message"></p>
+        </div>
+    </center>
+
+    <script>
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+        }
+
+        function sendOTP() {
+            const emailInput = document.getElementById("email");
+            const messageBox = document.getElementById("message");
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                messageBox.style.color = "red";
+                messageBox.innerText = "Please enter your email address.";
+                return;
+            }
+
+            const otp = generateOTP();
+
+            // Simulate sending OTP (in real app, send to backend for email delivery)
+            console.log("Sending OTP:", otp); // Developer view
+            messageBox.style.color = "green";
+            messageBox.innerText = `OTP sent to ${email}. (OTP: ${otp})`;
+
+            // You can store it for verification (e.g., in a variable or session)
+            window.generatedOTP = otp;
+
+            emailInput.value = "";
+        }
+    </script>
+</body>
+
+</html>

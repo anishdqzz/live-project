@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <style>
+        body{
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("Background.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: Arial, sans-serif;
+        }
+        .Register{
+            margin: 10px;
+        justify-content: center;
+        text-align: center;
+        padding: 200px;
+        backdrop-filter: blur(-1px);
+        background-color: rgba(255, 255, 255, 0.103);
+        width: 400px;
+        height: 300px;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  .Register:hover{
+    background-color: rgba(128, 255, 0, 0.185);
+  }
+ button{
+    align-items: center;
+    padding: 10px;
+      transform: scale3d(1,1,1);
+      transition: transform 0.3s ease-out;
+      background-color: red;
+      border: 0;
+      border-radius: 10px;
+    }
+    button:hover {
+   animation: rubberBand 0.5s ease-in-out;
+      
+    }
+    @keyframes rubberBand {
+      0% { transform: scale3d(1, 1, 1); }
+      30% { transform: scale3d(1.25, 0.75, 1); }
+      40% { transform: scale3d(0.75, 1.25, 1); }
+      50% { transform: scale3d(1.15, 0.85, 1); }
+      65% { transform: scale3d(0.95, 1.05, 1); }
+      75% { transform: scale3d(1.05, 0.95, 1); }
+      100% { transform: scale3d(1, 1, 1); }
+    }
+ span{
+    color: red;
+ }
+ label{
+    display: ruby-text-container;
+ }
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<body>
+    <center>
+        <h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Register</h3>
+        <div id="Register">
+            <br>
+            <br>
+        <label for="Register"><span>*</span>name</label><br>
+        <input type="text"  id="name" required>
+        <br>
+        <label for="email"><span>*</span>email</label><br>
+        <input type="email" name="email" id="email" required>
+        <br>
+        <label for="password"><span>*</span>password</label> <br>
+        <input type="password" id="password" >
+        <br>
+        <label for="conform password"><span>*</span>Confirm Password</label> <br>
+        <input type="password" required id="cpassword">
+        <br>
+        <br>
+        <button class="btn btn-danger" onclick="Register()">register</button>
+        <br>
+        <a href="login.html"> <span style="color: red;">Home</span></a>
+
+        </div>
+
+    </center>
+    <script>
+        function Register(){
+            const email = document.getElementById("email").value;
+            const name = document.getElementById("name").value;
+            const password = document.getElementById("password").value;
+            const conform = document.getElementById("cpassword").value;
+
+            if(email === 'anish@gmail.com' && name === 'anish' && password === '123'){
+                  alert("registered successfully");
+            }
+          
+
+            else{
+                alert("wrong password or email");
+            }
+        }; 
+    </script>
+    
+</body>
+</html>

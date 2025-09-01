@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Web Login</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section>
+      <div class="leaves">
+        <div class="set">
+          <div> <img src="animategirl/leaf_01.png" alt=""></div>
+          <div>  <img src="animategirl/leaf_02.png" alt=""></div>
+          <div><img src="animategirl/leaf_03.png" alt=""></div>
+          <div><img src="animategirl/leaf_04.png" alt=""></div>
+          <div><img src="animategirl/leaf_01.png" alt=""></div>
+          <div><img src="animategirl/leaf_02.png" alt=""></div>
+          <div><img src="animategirl/leaf_04.png" alt=""></div>
+          <div><img src="animategirl/leaf_04.png" alt=""></div>
+        </div>
+      </div>
+      
+      <img class="girl" src="animategirl/girl.png" alt="">
+      <img class="tree" src="animategirl/trees.png" alt="">
+      <center>
+        <h2>LOGIN PAGE</h2>
+        <!-- <img class="girl" src="animategirl/girl.png" alt="">
+        <img class="tree" src="animategirl/trees.png" alt=""> -->
+        <div class="login" class="col-md-6 col-lg-12 col-6">
+          <label for="username">Username</label><br>
+          <input type="text" placeholder="ex:Anish012" required id="username"><br>
+
+          <label for="password">Password</label><br>
+          <input type="password" id="password" placeholder="password" required><br>
+
+          <input type="checkbox" id="rememberme">
+          <label for="remember">Remember me</label>
+          <br>
+
+          <a href="Register.html">Register</a> /
+          <a href="forgetpass.html">Forget Password</a>
+          <br><br>
+
+          <button class="btn btn-danger" onclick="login()">Submit</button>
+
+          <p >@2025 Anish Project</p>
+        </div>
+       </center> 
+    <script>
+      function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const rememberme = document.getElementById("rememberme").checked;
+        
+        if(username === 'Anish' && password === '123'){
+          alert("Login successful ✅");
+          window.location.href='http://127.0.0.1:5500/public/loginafter.html';
+        }
+        else{
+          alert("Invalid username or password ❌");
+        }        
+        if(rememberme){
+          localStorage.setItem("savedname", username);
+        }
+        else{
+          localStorage.removeItem("savedname");
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  </section>
+</body>
+</html>

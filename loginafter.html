@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Course List with React and Sliding Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- React, ReactDOM, and Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+       background-color: #153b61;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .topbar {
+      background-color: #dc3545;
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+
+    .topbar h1 {
+      text-align: center;
+      display: flex;
+      padding-left: 40%;
+      color: white;
+    }
+
+    #myslideMenu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #343a40;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+
+    #myslideMenu a {
+      display: block;
+      color: #f8f9fa;
+      text-decoration: none;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      transition: background 0.2s ease;
+    }
+
+    #myslideMenu a:hover {
+      background-color: #dc3545;
+    }
+
+    .close-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #ffffff;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .close-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    /* Course card styles */
+    .course-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+
+    }
+
+    .card {
+      border: 1px;
+      border-radius: 10px;
+      margin: 1rem;
+      width: 250px;
+      box-shadow: 0 4px 10px rgba(114, 35, 35, 0.1);
+      overflow: hidden;
+      /* filter: blur(1px); */
+      filter:saturate(0);
+      transition: tranform 5s;
+      transform-style: preserve-3d;
+    }
+    .card:hover{
+      cursor: pointer;
+     filter:saturate();
+     filter: brightness(1);
+     transform: scale(1.2);
+     transition-duration: 5s;
+     
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 1rem 0 0.5rem;
+      text-align: center;
+    }
+
+    .card p, .card span {
+      text-align: center;
+    }
+
+    .card button {
+      display: block;
+      margin: 1rem auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar with menu -->
+  <div class="topbar">
+    <svg onclick="openMenu()" xmlns="http://www.w3.org/2000/svg" class="menu-icon" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+    </svg>
+    <h1>Courses</h1>
+  </div>
+
+  <!-- Side Menu -->
+  <div id="myslideMenu">
+    <div class="close-btn" onclick="closeMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+      </svg>
+      Close
+    </div>
+    <a href="#">Service</a>
+    <a href="#">Contact</a>
+    <a href="#">Link</a>
+  </div>
+
+  <!-- React Root -->
+  <div id="root"></div>
+
+  <!-- React Script -->
+  <script type="text/babel">
+    // Course component
+    function Course({ name, price, image, rating }) {
+      return (
+        <div className="card">
+          <img src={image} alt={name} />
+          <h3>{name}</h3>
+          <p>Price: ₹{price}</p>
+          <span>Rating: {rating} ⭐</span><br/>
+          <button className="btn btn-danger" onClick={() => alert(`You selected: ${name}`)}>
+            Select Course
+          </button>
+        </div>
+      );
+    }
+
+    // CourseList component
+    function CourseList() {
+      const courses = [
+        {
+          name: "HTML",
+          price: 199,
+          image: "react img/HTML.jpg",
+          rating: 4.5,
+        },
+        {
+          name: "CSS",
+          price: 149,
+          image: "react img/CSS.jpg",
+          rating: 4,
+        },
+        {
+          name: "JavaScript",
+          price: 299,
+          image: "react img/JS.jpg",
+          rating: 5,
+        },
+        {
+          name: "REACT",
+          price: 499,
+          image: "react img/react.svg",
+          rating: 5,
+        },
+        {
+          name: "JQUERY",
+          price:399,
+          image:"react img/jquery.jpg",
+          rating: 4.5,
+        },
+      ];
+
+      const sortedCourses = courses.sort((a, b) => a.price - b.price);
+
+      return (
+        <div className="course-container">
+          {sortedCourses.map((course, index) => (
+            <Course key={index} {...course} />
+          ))}
+        </div>
+      );
+    }
+
+    // Render App
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<CourseList />);
+  </script>
+
+  <!-- Sliding Menu JS -->
+  <script>
+    function openMenu() {
+      document.getElementById("myslideMenu").style.left = "0";
+    }
+
+    function closeMenu() {
+      document.getElementById("myslideMenu").style.left = "-250px";
+    }
+  </script>
+</body>
+</html>
