@@ -163,13 +163,16 @@
   <script type="text/babel">
     // Course component
     function Course({ name, price, image, rating }) {
+       const url = `course-pages/${name.toLowerCase()}.html`;
       return (
         <div className="card">
           <img src={image} alt={name} />
           <h3>{name}</h3>
           <p>Price: ₹{price}</p>
           <span>Rating: {rating} ⭐</span><br/>
-          <button className="btn btn-danger" onClick={() => alert(`You selected: ${name}`)}>
+            <button className="btn btn-danger" onClick={() => window.location.href = url}>
+            Select Course
+          </button>
             Select Course
           </button>
         </div>
